@@ -1,111 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
-  <%- include('partials/head',{
-    title : 'Registrate'
-  }) %>
+<%- include('partials/head',{ title : 'Registrate' }) %>
+
   <body>
     <%- include('partials/headerNavbar') %>
 
-    <div class="container products-wrapper">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="products-title">Registrate</h2>
-        </div>
+      <div class="container products-wrapper">
+        <div class="row">
           <div class="col-12">
-                <form id="form-register" action="" method="POST" novalidate>
+            <h2 class="products-title">Registrate</h2>
+          </div>
+          <div class="col-12">
+            <form id="form-register" action="" method="POST" novalidate>
 
-                  <div class="row product-detail">
+              <div class="row product-detail">
 
-                      <div class="col-12 col-md-6">
-                        <label for="name" class="form-label">Nombre</label>
-                        <input type="text"
-                        class=" form-control py-3 <%= locals.errors && errors.name ? 'is-invalid' : null %> " 
-                        value="<%= locals.old && old.name ? old.name : null %>"
-                        id="name"  name="name" title="El nombre debe tener más de dos caracteres"/>
-                        <small id="errorNombre" class="text-danger"><%= locals.errors && errors.name ? errors.name.msg : null %> </small>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label for="surname" class="form-label">Apellido</label>
-                        <input type="text"
-                        value="<%= locals.old && old.surname ? old.surname : null %>"
-                        class=" form-control py-3 <%= locals.errors && errors.surname ? 'is-invalid' : null %>"
-                        id="surname" name="surname" title="El apellido debe tener más de dos caracteres"/>
-                        <small id="errorApellido" class="text-danger"><%= locals.errors && errors.surname ? errors.surname.msg : null %></small>
-                      </div>
-                      <div class="col-12">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email"
-                        value="<%= locals.old && old.email ? old.email : null %>"
-                        class=" form-control py-3 <%= locals.errors && errors.email ? 'is-invalid' : null %>"
-                        id="email" name="email"/>
-                        <small id="errorEmail" class="text-danger"><%= locals.errors && errors.email ? errors.email.msg : null %></small>
-                      </div>
-                    <div class="col-12 col-md-6">
-                        <label for="pass" class="form-label">Contraseña</label>
-                        <div class="d-flex  mb-3">
-                          
-                          <input type="password"
-                          class=" py-3 form-control <%= locals.errors && errors.pass ? 'is-invalid' : null %>" name="pass" id="pass"/>
-                            <span class="input-group-text" style="cursor: pointer;"><i class="fa-solid fa-eye-slash " ></i></span>
-                        </div>
+                <div class="col-12 col-md-6">
+                  <label for="name" class="form-label">Nombre</label>
+                  <input type="text"
+                    class=" form-control py-3 <%= locals.errors && errors.name ? 'is-invalid' : null %> "
+                    value="<%= locals.old && old.name ? old.name : null %>" id="name" name="name"
+                    title="El nombre debe tener más de dos caracteres" />
+                  <small id="errorNombre" class="text-danger">
+                    <%= locals.errors && errors.name ? errors.name.msg : null %>
+                  </small>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="surname" class="form-label">Apellido</label>
+                  <input type="text" value="<%= locals.old && old.surname ? old.surname : null %>"
+                    class=" form-control py-3 <%= locals.errors && errors.surname ? 'is-invalid' : null %>" id="surname"
+                    name="surname" title="El apellido debe tener más de dos caracteres" />
+                  <small id="errorApellido" class="text-danger">
+                    <%= locals.errors && errors.surname ? errors.surname.msg : null %>
+                  </small>
+                </div>
+                <div class="col-12">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" value="<%= locals.old && old.email ? old.email : null %>"
+                    class=" form-control py-3 <%= locals.errors && errors.email ? 'is-invalid' : null %>" id="email"
+                    name="email" />
+                  <small id="errorEmail" class="text-danger">
+                    <%= locals.errors && errors.email ? errors.email.msg : null %>
+                  </small>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="pass" class="form-label">Contraseña</label>
+                  <div class="d-flex  mb-3">
 
-                     
-                        <small id="errorPass" class="text-danger"><%= locals.errors && errors.pass ? errors.pass.msg : null %></small>
-                      </div>
+                    <input type="password"
+                      class=" py-3 form-control <%= locals.errors && errors.pass ? 'is-invalid' : null %>" name="pass"
+                      id="pass" />
+                    <span class="input-group-text" style="cursor: pointer;"><i class="fa-solid fa-eye-slash"
+                        onclick="viewPass(event)"></i></span>
 
-                      <div class="col-12 col-md-6">
-                        <label for="pass2" class="form-label">Reingresar contraseña</label>
-                        <input type="password"
-                        class=" form-control py-3 <%= locals.errors && errors.pass2 ? 'is-invalid' : null %>"
-                        id="pass2" name="pass2"/>
-                        <small id="errorPass2" class= "text-danger"><%= locals.errors && errors.pass2 ? errors.pass2.msg : null %></small>
-
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <div class="d-flex justify-content-center">
-                          <div class="form-check d-flex align-items-center">
-                            <input name="bases" class="form-check-input <%= locals.errors && errors.bases ? 'is-invalid' : null %>" type="checkbox" value="" id="terms" style="width:30px; height:30px;">
-                            <label class="form-check-label ms-2" for="terms">
-                              Acepto las bases y condiciones
-                            </label>
-                          
-                          </div>
-                        </div>
-                    
-
-                        <p id="errorTerms" class= "text-danger text-center"><%= locals.errors && errors.bases ? errors.bases.msg : null %></p>
+                  </div>
+                  <small id="errorPass" class="text-danger">
+                    <%= locals.errors && errors.pass ? errors.pass.msg : null %>
+                  </small>
+                  <div class="ms-3" id="msg-pass" hidden>
+                    <p class="m-0" id="msgMayu">Una mayúscula</p>
+                    <p class="m-0" id="msgMinu">Una minúscula</p>
+                    <p class="m-0" id="msgNum">Un número</p>
+                    <p class="m-0" id="msgEsp">Un caracter especial</p>
+                    <p class="m-0" id="msgMin">Mínimo 6 caracteres</p>
+                    <p class="m-0" id="msgMax">Máximo 8 caracteres</p>
+                  </div>
+                </div>
 
 
+                <div class="col-12 col-md-6">
+                  <label for="pass2" class="form-label">Reingresar contraseña</label>
+                  <input type="password"
+                    class=" form-control py-3 <%= locals.errors && errors.pass2 ? 'is-invalid' : null %>" id="pass2"
+                    name="pass2" />
+                  <small id="errorPass2" class="text-danger">
+                    <%= locals.errors && errors.pass2 ? errors.pass2.msg : null %>
+                  </small>
 
-                        </div>
-                        <div class="col-12 col-md-6 mt-4">
+                </div>
+                <div class="col-12 col-md-3">
 
-                          <button type="submit" class="buy-now-button">
-                            Registrarse
-                          </button>
-                          <span id="msgError" class="text-danger"></span>
-
-                         
-                        </div>
+                </div>
+                <div class="col-12">
+                  <div class="d-flex justify-content-center">
+                    <div class="form-check d-flex align-items-center">
+                      <input name="bases"
+                        class="form-check-input <%= locals.errors && errors.bases ? 'is-invalid' : null %>"
+                        type="checkbox" value="" id="terms" style="width:30px; height:30px;">
+                      <label class="form-check-label ms-2" for="terms">
+                        Acepto las bases y condiciones
+                      </label>
 
                     </div>
-                    
-                      </div>
-                      
+                  </div>
 
-                      </div>
 
-                  </form>
+                  <p id="errorTerms" class="text-danger text-center">
+                    <%= locals.errors && errors.bases ? errors.bases.msg : null %>
+                  </p>
+
+
+                  <p id="msgError" class="alert alert-danger text-center" hidden>Algunos tienen errores y/o están
+                    vacíos.</p>
+
                 </div>
+                <div class="col-12  d-flex justify-content-end mt-4">
+
+                  <button type="submit" class="buy-now-button">
+                    Registrarse
+                  </button>
+
+
+                </div>
+
               </div>
-            </div>
+
           </div>
+
+
         </div>
-    </div>
 
-    <%- include('partials/footer') %>
-    <%- include('partials/scripts') %>
+        </form>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
 
-    <script src="/js/userRegister.js"></script>
+      <%- include('partials/footer') %>
+        <%- include('partials/scripts') %>
+
+          <script src="/js/userRegister.js"></script>
   </body>
+
 </html>

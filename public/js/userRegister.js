@@ -3,6 +3,13 @@ console.log('userRegister success!');
 const exRegAlfa = /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/
 const exRegEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/
 const exRegPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,12}/
+const exRegMayu =  /[A-Z]/;
+const exRegMinu = /[a-z]/;
+const exRegNum = /[0-9]/;
+const exRegEsp = /[$@$!%*?&]/;
+const exRegMin = /.{6,}/;
+const exRegMax = /.{9}/;
+
 
 const msgError = (element, msg, {target}) => {
     $(element).innerText = msg;
@@ -20,9 +27,9 @@ const validField = (element,{target}) => {
     
 };
 
-const viewPass = function(e) {
-    document.querySelector('#viewPass i').classList.toggle('fa-eye')
-    document.querySelector('#viewPass i').classList.toggle('fa-eye-slash')
+const viewPass = function(event) {
+    event.target.classList.toggle('fa-eye')
+    event.target.classList.toggle('fa-eye-slash')
 
    $('pass').type = $('pass').type === "text" ? 'password' : 'text';
 };
@@ -119,6 +126,7 @@ $('email').addEventListener('focus', function({target}){
 });
 
 $('pass').addEventListener('blur', function(e){
+    $('msg-pass').hidden = true
     switch (true) {
         case !this.value.trim():
             msgError('errorPass',"La contraseña es obligatoria", e);
@@ -130,6 +138,60 @@ $('pass').addEventListener('blur', function(e){
             validField('errorPass',e)
             break;
     }
+});
+
+$('pass').addEventListener('focus', () => {
+    $('msg-pass').hidden = false
+})
+
+$('pass').addEventListener('keyup', function(e){
+  if(!exRegMayu.test(e.target.value)){
+    $('msgMayu').classList.add('text-danger');
+    $('msgMayu').classList.remove('text-sucess');
+  }else{
+    $('msgMayu').classList.add('text-success');
+    $('msgMayu').classList.remove('text-danger');
+  };
+
+  if(!exRegMinu.test(e.target.value)){
+    $('msgMinu').classList.add('text-danger');
+    $('msgMinu').classList.remove('text-sucess');
+  }else{
+    $('msgMinu').classList.add('text-success');
+    $('msgMinu').classList.remove('text-danger');
+  };
+
+  if(!exRegNum.test(e.target.value)){
+    $('msgNum').classList.add('text-danger');
+    $('msgNum').classList.remove('text-sucess');
+  }else{
+    $('msgNum').classList.add('text-success');
+    $('msgNum').classList.remove('text-danger');
+  };
+
+  if(!exRegEsp.test(e.target.value)){
+    $('msgEsp').classList.add('text-danger');
+    $('msgEsp').classList.remove('text-sucess');
+  }else{
+    $('msgEsp').classList.add('text-success');
+    $('msgEsp').classList.remove('text-danger');
+  }
+
+  if(!exRegMin.test(e.target.value)){
+    $('msgMin').classList.add('text-danger');
+    $('msgMin').classList.remove('text-sucess');
+  }else{
+    $('msgMin').classList.add('text-success');
+    $('msgMin').classList.remove('text-danger');
+  };
+
+  if(exRegMax.test(e.target.value)){
+    $('msgMax').classList.add('text-danger');
+    $('msgMax').classList.remove('text-sucess');
+  }else{
+    $('msgMax').classList.add('text-success');
+    $('msgMax').classList.remove('text-danger');
+  }
 });
 
 $('pass').addEventListener('focus', function({target}){
@@ -185,7 +247,11 @@ $('form-register').addEventListener('submit', (e) => {
         if(!elements[i].value || elements[i].classList.contains('is-invalid')){
             error = true;
             elements[i].classList.add('is-invalid')
-            $('msgError').innerText = "Algunos tienen errores y/o están vacíos."
+            $('msgError').hidden = false;
+            setTimeout(() => {
+                $('msgError').hidden = true;
+
+            }, 3000);
         }
         
     }
