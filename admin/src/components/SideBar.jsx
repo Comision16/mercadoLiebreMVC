@@ -8,7 +8,7 @@ export const SideBar = () => {
 			
     <Link className="sidebar-brand " to="/">
         <div className="sidebar-brand-icon">
-            <img className="w-100" src="/images/logo-mercado-liebre.svg" alt="Digital House"/>
+            <img className="w-100" src="/images/logo-mercado-liebre.svg" alt="Mercado Liebre"/>
         </div>
     </Link>
 
@@ -19,7 +19,7 @@ export const SideBar = () => {
     <li className="nav-item active">
         <Link className="nav-link" to="/">
             <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard - DH movies</span></Link>
+            <span>Dashboard</span></Link>
     </li>
 
     

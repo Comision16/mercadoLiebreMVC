@@ -8,7 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const methodOverride =  require('method-override'); // Pasar poder usar los métodos PUT y DELETE
 const { cookiesCheck, localsCheck } = require('./middlewares');
-
+const cors = require('cors');
 
 // ************ express() - (don't touch) ************
 const app = express();
@@ -25,6 +25,7 @@ app.use(session({
   resave : false,
   saveUninitialized : true
 }));
+app.use(cors())
 
 app.use(cookiesCheck);
 app.use(localsCheck)
@@ -46,8 +47,10 @@ app.use('/', mainRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 
+app.use('/api',require('./routes/APIs/apiMain'));
 app.use('/api/users',require('./routes/APIs/apiUsers'));
 app.use('/api/products',require('./routes/APIs/apiProducts'));
+app.use('/api/categories',require('./routes/APIs/apiCategories'));
 app.use('/api/carts',require('./routes/APIs/apiCarts'));
 
 // ************ DON'T TOUCH FROM HERE ************
